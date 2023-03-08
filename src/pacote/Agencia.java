@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class Agencia {
 	
-	static ArrayList<Conta> contas;
+	
+
+	static ArrayList<Conta> contas = new ArrayList<Conta>();
 	
 	private int numeroAgencia;
 	private String nomeAgencia;

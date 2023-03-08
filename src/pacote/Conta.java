@@ -1,7 +1,7 @@
 package pacote;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Date;
 
 public class Conta {
@@ -11,51 +11,38 @@ public class Conta {
 	String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
 	String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
 	
-	ArrayList<String> extrato = new ArrayList<>();
+	String extrato;
 	
 	
 	private String nomeProprietario;
 	private String cpfProprietario;
-	private String nomeAgencia;
+	private int numAgencia;
 	private double saldo;
 	public static int countAcconter=1;
 	
-	public Conta(String nomeProprietario, String cpfProprietario, String nomeAgencia, int cc) {
+	public Conta(String nomeProprietario, String cpfProprietario, int num, int cc) {
 		super();
 		this.setNomeProprietario(nomeProprietario);
 		this.setCpfProprietario(cpfProprietario);
-		this.setNomeAgencia(nomeAgencia);
+		this.setNumAgencia(num);
 		this.setSaldo(0);
 		this.setNumeroDaConta(cc);
 	}
 	
 	
-	public void verificarExtrato() {
-		for(int i=0; i<extrato.size(); i++) {
-			System.out.println(extrato+"\n");
-		}
-	}
-	public String getNomeAgencia() {
-		return nomeAgencia;
-	}
-
-
-	public void setNomeAgencia(String nomeAgencia) {
-		this.nomeAgencia = nomeAgencia;
-	}
-
-
+	
+	
 	public void sacar(double valor) {
-		if(valor!=0&&valor>this.getSaldo()){
+		if(valor!=0&&valor<=this.getSaldo()){
 			this.setSaldo(this.getSaldo()-valor);
-			extrato.add("Saque de " + valor + " realizado=="
-					+ " Data: " + data + "  " +hora);
+			extrato= extrato + "\nSaque de " + valor + " realizado=="
+					+ "Data: " + data + "  " +hora;
 		}
 	}
-	public void depositar(Double valor) {
+	public void depositar(double valor) {
 		this.setSaldo(this.getSaldo()+valor);
-		extrato.add("deposito de " + valor + " realizado=="
-				+ " Data: " + data + "  " +hora);
+		extrato=extrato + "\nDeposito de " + valor + " realizado=="
+				+ "Data: " + data + "  " +hora;
 	}
 	
 	public String getNomeProprietario() {
@@ -90,6 +77,15 @@ public class Conta {
 
 	public void setNumeroDaConta(int numeroDaConta) {
 		Conta.countAcconter = numeroDaConta;
+	}
+
+	public int getNumAgencia() {
+		return numAgencia;
+	}
+
+
+	public void setNumAgencia(int numAgencia) {
+		this.numAgencia = numAgencia;
 	}
 	
 	
