@@ -18,7 +18,7 @@ public class Conta {
 	private String cpfProprietario;
 	private int numAgencia;
 	private double saldo;
-	public static int countAcconter=1;
+	public static int countAcconter;
 	
 	public Conta(String nomeProprietario, String cpfProprietario, int num, int cc) {
 		super();
@@ -28,9 +28,6 @@ public class Conta {
 		this.setSaldo(0);
 		this.setNumeroDaConta(cc);
 	}
-	
-	
-	
 	
 	public void sacar(double valor) {
 		if(valor!=0&&valor<=this.getSaldo()){

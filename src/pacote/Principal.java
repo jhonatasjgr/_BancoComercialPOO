@@ -92,19 +92,24 @@ public class Principal {
 											+ "CPF: " + cpf + "\n"
 													+ "Numero da conta: " + Conta.countAcconter);
 						countAconter++;
-					}else {
-						JOptionPane.showMessageDialog(null, "Cliente não encontrado");
 					}
+				}
+				
+				if(comparador==false) {
+					JOptionPane.showMessageDialog(null, "Cliente não encontrado");
 				}
 			break;
 		case 3:
 			num=0;
+			int posicao=0;
 			comparador=false;
 			String co = JOptionPane.showInputDialog("Digite o numero da Conta em que\n"
 						+ "Deseja transferir de Agencia");
 			for(Conta cos: Agencia.contas) {
 			comparador = (Integer.parseInt(co)==(cos.getNumeroDaConta()))? true:false;
-			if(Integer.parseInt(co)==(cos.getNumeroDaConta())) {
+			posicao++;
+			}
+			if(comparador==true) {
 				Object[] ags = {ag1.getNomeAgencia(),ag2.getNomeAgencia(),ag3.getNomeAgencia(),ag4.getNomeAgencia(),ag5.getNomeAgencia(),ag6.getNomeAgencia(),ag7.getNomeAgencia(),ag8.getNomeAgencia(),ag9.getNomeAgencia(),ag10.getNomeAgencia(),};
 				Object novaag = JOptionPane.showInputDialog(null, "Escolha a nova Agencia", "Agencias", JOptionPane.INFORMATION_MESSAGE,null,ags, ags[0]);
 				for(Agencia a: agencias) {
@@ -112,14 +117,12 @@ public class Principal {
 					num = a.getNumeroAgencia();
 					}
 				}
-				for(Conta coss : Agencia.contas) {
-				coss.setNumAgencia(num);
+				for(Conta cos : Agencia.contas) {
+				cos.setNumAgencia(num);
 			}
 			JOptionPane.showMessageDialog(null, "Conta alterada para a agencia de " + novaag);
-			}
-			else {
+			} else {
 				JOptionPane.showMessageDialog(null,"Conta não encontrada");
-			}
 			}
 			break;
 		case 4:
@@ -224,8 +227,25 @@ public class Principal {
 			}
 			break;
 		case 10:	
-			break;
+			int nContas = 0;
+			double sContas = 0;
+			int nAgencia;
+			Object[] agg = {ag1.getNomeAgencia(),ag2.getNomeAgencia(),ag3.getNomeAgencia(),ag4.getNomeAgencia(),ag5.getNomeAgencia(),ag6.getNomeAgencia(),ag7.getNomeAgencia(),ag8.getNomeAgencia(),ag9.getNomeAgencia(),ag10.getNomeAgencia(),};
+			Object novaagg = JOptionPane.showInputDialog(null, "Escolha a nova Agencia para saber as informações", "Agencias", JOptionPane.INFORMATION_MESSAGE,null,agg, agg[0]);
+			for(Agencia a: agencias) {
+				if(novaagg==a.getNomeAgencia()) {
+					nAgencia=a.getNumeroAgencia();
+					for(Conta c: Agencia.contas) {
+						if(nAgencia==c.getNumAgencia()) {
+							sContas=sContas+c.getSaldo();
+							nContas++;	
+						}
+					}
+				}
+			}
 			
+			JOptionPane.showMessageDialog(null, "Agencia "+novaagg+"\nSaldo na Agencia: "+ sContas+"\nNumero de contas: "+nContas);
+			break;
 		case 11:
 			int nnContas = 0;
 			double ssContas = 0;
