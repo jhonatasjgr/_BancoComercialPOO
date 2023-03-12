@@ -15,6 +15,7 @@ public class Agencia {
 		this.setNumeroAgencia(nu);
 		this.setNomeAgencia(no);
 	}
+	
 	public int getNumeroAgencia() {
 		return numeroAgencia;
 	}
