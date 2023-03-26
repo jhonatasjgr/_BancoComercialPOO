@@ -151,9 +151,13 @@ public class Principal {
 					String valor = JOptionPane.showInputDialog(null,"Conta: "+cos.getNumeroDaConta()+"\nProprietario"
 					+cos.getNomeProprietario()+"\nQuanto deseja Depositar?");
 					cos.depositar(Double.parseDouble(valor));
+					if(Double.parseDouble(valor)>0.0) {
 					JOptionPane.showMessageDialog(null,"R$"+valor+" depositado na conta de " + cos.getNomeProprietario());
 					cos.extrato+="\nDeposito de R$" + valor + " realizado  "
 							+ "Data: " + cos.data + "  " + cos.hora+".";
+					}else {
+						JOptionPane.showMessageDialog(null,"Impossivel depositar valor negativo");
+					}
 			}
 			} if(t==false) {
 				JOptionPane.showMessageDialog(null, "Conta não encontrada", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -199,37 +203,44 @@ public class Principal {
 						t=true;
 						cod = JOptionPane.showInputDialog(null, "Olá " +cos.getNomeProprietario()
 						+"\n Digite o numero da conta destinataria");
-					for(Conta cos2: Agencia.contas) {
-						if(Integer.parseInt(cod)==cos2.getNumeroDaConta()&&Integer.parseInt(cod)!=Integer.parseInt(co)) {
-							 valor = JOptionPane.showInputDialog(null,"Olá" +cos.getNomeProprietario()+".\nQuanto deseja transferir para " + cos2.getNomeProprietario()+"?\n"
-									+ "Saldo disponivel: "+cos.getSaldo());
-							if(Double.parseDouble(valor)<=cos.getSaldo()) {
-								cos2.depositar(Double.parseDouble(valor));
-								cos.sacar(Double.parseDouble(valor));
-								cos.extrato=cos.extrato + "\nTransferencia de R$" + valor+ " realizada para conta de "+cos2.getNomeProprietario()+
-										"  Data: "+cos.data+"  Hora: "+cos.hora+".";
-								cos2.extrato=cos2.extrato + "\nTransferencia de R$"+ valor+" recebida da conta de "+cos.getNomeProprietario()+
-										"  Data: "+cos.data+"  Hora: "+cos.hora+".";
-								JOptionPane.showMessageDialog(null,"\nTransferencia de R$"+valor+" realizada de "+cos.getNomeProprietario()
-								+ " para "+cos2.getNomeProprietario()+
-								"\nData: " + cos.data+"  Hora: "+cos.hora+".");
+						for(Conta cos3: Agencia.contas) {
+							if(Integer.parseInt(cod)==cos3.getNumeroDaConta()) {
+								for(Conta cos2: Agencia.contas) {
+									if(Integer.parseInt(cod)==cos2.getNumeroDaConta()&&Integer.parseInt(cod)!=Integer.parseInt(co)) {
+										 valor = JOptionPane.showInputDialog(null,"Olá" +cos.getNomeProprietario()+".\nQuanto deseja transferir para " + cos2.getNomeProprietario()+"?\n"
+												+ "Saldo disponivel: "+cos.getSaldo());
+										if(Double.parseDouble(valor)<=cos.getSaldo()) {
+											cos2.depositar(Double.parseDouble(valor));
+											cos.sacar(Double.parseDouble(valor));
+											cos.extrato=cos.extrato + "\nTransferencia de R$" + valor+ " realizada para conta de "+cos2.getNomeProprietario()+
+													"  Data: "+cos.data+"  Hora: "+cos.hora+".";
+											cos2.extrato=cos2.extrato + "\nTransferencia de R$"+ valor+" recebida da conta de "+cos.getNomeProprietario()+
+													"  Data: "+cos.data+"  Hora: "+cos.hora+".";
+											JOptionPane.showMessageDialog(null,"\nTransferencia de R$"+valor+" realizada de "+cos.getNomeProprietario()
+											+ " para "+cos2.getNomeProprietario()+
+											"\nData: " + cos.data+"  Hora: "+cos.hora+".");
+										}else {
+											JOptionPane.showMessageDialog(null, "Saldo insuficiente");
+										}
+									}
+									if(Integer.parseInt(cod)!=cos2.getNumeroDaConta()){
+										t2=true;
+									}
+									if(Integer.parseInt(cod)==Integer.parseInt(co)) {
+										t3=true;
+									}
+								}
 							}else {
-								JOptionPane.showMessageDialog(null, "Saldo insuficiente");
+								t2=true;
 							}
 						}
-						if(Integer.parseInt(cod)==cos2.getNumeroDaConta()){
-							t2=true;
-						}
-						if(Integer.parseInt(cod)==Integer.parseInt(co)) {
-							t3=true;
-						}
-					}
+					
 					}
 				}
 				if(t==false) {
 					JOptionPane.showMessageDialog(null, "Conta  não encontrada","ERRO", JOptionPane.ERROR_MESSAGE);
 				}
-				if(t2=false) {
+				if(t2=true) {
 					JOptionPane.showMessageDialog(null, "Conta destinataria não encontrada");
 				}
 				if(t3=false) {
